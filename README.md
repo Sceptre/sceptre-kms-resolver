@@ -13,3 +13,4 @@ https://github.com/Sceptre/project/wiki/Sceptre-Resolver-Template
 If you have any questions or encounter an issue
 [please open an issue](https://github.com/Sceptre/project/issues/new)
 test
+test
