@@ -1,14 +1,37 @@
-# README
+# Overview
 
-Add your resolver readme here. Remember to include the following:
+The purpose of this resolver is to retrieve values from the AWS KMS. 
 
-- Tell people how to install it (e.g. pip install ...).
-- Be clear about the purpose of the resolver, its capabilities and limitations.
-- Tell people how to use it.
-- Give examples of the resolver in use.
+## Install
 
-Read our wiki to learn how to use this repo:
-https://github.com/Sceptre/project/wiki/Sceptre-Resolver-Template
+```bash
+pip install sceptre-kms-resolver
+```
 
-If you have any questions or encounter an issue
-[please open an issue](https://github.com/Sceptre/project/issues/new)
+## Available Resolvers
+
+### kms
+
+Fetches the value stored in AWS KMS.
+
+Syntax:
+
+```yaml
+parameter|sceptre_user_data:
+    <name>: !kms CIPHERTEXT
+```
+
+#### Example:
+
+Encrypt data with KMS to get a Ciphertext:
+```
+aws kms --key-id <KMS Key Id> --plaintext <data> --output text --query CiphertextBlob
+
+AQICAHhZyEsV0yflwE0mpKvPz7/O/zc1epgIurV43wXF/qF6MwFQYwZq7TrvtQ2....
+```
+
+Use sceptre to retrieve and decrypt the value from KMS:
+```
+parameters:
+    database_password: !kms AQICAHhZyEsV0yflwE0mpKvPz7/O/zc1epgIurV43wXF/qF6MwFQYwZq7TrvtQ2...
+```
