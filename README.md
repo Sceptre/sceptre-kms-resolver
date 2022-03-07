@@ -1,6 +1,6 @@
 # Overview
 
-The purpose of this resolver is to retrieve values from the AWS KMS. 
+The purpose of this resolver is to retrieve values from the AWS KMS.
 
 ## Install
 
