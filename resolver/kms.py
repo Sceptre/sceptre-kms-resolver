@@ -36,12 +36,13 @@ class KmsBase(Resolver):
         response = self._request_kms_value(param, profile, region)
 
         try:
-            binary_value = response[u'Plaintext']
+            binary_value = response["Plaintext"]
             decoded_value = binary_value.decode()
             return decoded_value
         except KeyError:
-            self.logger.error("%s - Invalid response looking for: %s",
-                              self.stack.name, param)
+            self.logger.error(
+                "%s - Invalid response looking for: %s", self.stack.name, param
+            )
             raise
 
     def _request_kms_value(self, param, profile=None, region=None):
@@ -68,8 +69,7 @@ class KmsBase(Resolver):
             raise e
         except ClientError as e:
             if "ParameterNotFound" in e.response["Error"]["Code"]:
-                self.logger.error("%s - ParameterNotFound: %s",
-                                  self.stack.name, param)
+                self.logger.error("%s - ParameterNotFound: %s", self.stack.name, param)
                 raise ParameterNotFoundError(e.response["Error"]["Message"])
             else:
                 raise e
@@ -95,9 +95,7 @@ class KmsResolver(KmsBase):
         :returns: The decoded value of the KMS parameter
         :rtype: str
         """
-        self.logger.debug(
-            "Resolving KMS parameter: {0}".format(self.argument)
-        )
+        self.logger.debug("Resolving KMS parameter: {0}".format(self.argument))
 
         value = None
         profile = self.stack.profile
